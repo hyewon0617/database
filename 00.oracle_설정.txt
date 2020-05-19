@@ -1,0 +1,38 @@
+1. Oracle Express Edition Download & Install
+2. Navicat Install
+	1) instanceclient_11_2폴더를 C:\Program Files\PremiumSoft\Navicat Premium 12 복사
+
+3. Run SQL Command Line 실행
+
+	1)db에 접속 :
+	  ...conn sys/12345 as sysdba
+	  or   connect sys as sysdba ->비밀번호 확인 필요
+	  ...sysdba : 시스템 DB관리자 권한으로 접속
+	2)현재사용자 확인
+	  ...show user : 현재사용자를 출력
+
+	3)다른 사용자로 접속
+	  ...conn hr/hr : 사용자권한으로 접속 -> 사용자 lock걸린 상태
+	  ...conn scott/tiger -> 사용자가 없음
+	  ...hr사용자는 lock을 해제, scott사용자는 새로 생성해야한다
+
+	4)날짜형식변경하기
+	  ... DB 환경조회 :
+	  sql> select * from v$nls_parameters;
+	  ... 날짜형식변경
+	  sql> alter session set nls_date_format = 'YYYY-MM-DD'; // dataformat형식변경
+	  sql> alter session set nls_timestamp_format = 'YYYY-MM-DD HH:MI:SS'; //timeformat형식변경
+
+	  ...alter [session/system]
+	  	 a. session: 현재 접속한 session에서만 변경
+	  	 b. system : database의 정보를 영구적으로 변경
+	  	    ->scope=[both/spfile] 
+	  	    	-both : 바로 적용 or 시스템재시작(오류날 가능성이 많다)
+	  	    	-spfile : db를 종료후 재시작
+
+	  	 c. alter system set nls_date_format = 'YYYY-MM-DD' scope=spfile;
+	  	 alter system set nls_timestamp_format = 'YYYY-MM-DD HH:MI:SS' scope=spfile;
+	  	 d. exit
+	 5)db 재시작
+	  ...stop database
+	  ...start database
